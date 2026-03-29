@@ -39,17 +39,18 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
       - name: Upload static files to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          port: ${{ secrets.HOSTINGER_FTP_PORT }}
-          protocol: ftp
-          local-dir: ./frontend/out/
-          server-dir: ./public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
+        run: |
+          lftp -u "${{ secrets.HOSTINGER_FTP_USERNAME }}","${{ secrets.HOSTINGER_FTP_PASSWORD }}" -p "${{ secrets.HOSTINGER_FTP_PORT }}" "${{ secrets.HOSTINGER_FTP_SERVER }}" <<EOF
+          set net:timeout 20
+          set net:max-retries 5
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 30
+          set ftp:passive-mode true
+          set ssl:verify-certificate no
+          mirror --reverse --delete --verbose ./frontend/out/ ./public_html/
+          bye
+          EOF
