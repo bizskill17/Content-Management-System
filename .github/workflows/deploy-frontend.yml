@@ -46,28 +46,13 @@ jobs:
         run: |
           lftp -u "${{ secrets.HOSTINGER_FTP_USERNAME }}","${{ secrets.HOSTINGER_FTP_PASSWORD }}" -p "${{ secrets.HOSTINGER_FTP_PORT }}" "${{ secrets.HOSTINGER_FTP_SERVER }}" <<EOF
           set cmd:fail-exit true
-          set net:timeout 20
-          set net:max-retries 5
+          set net:timeout 60
+          set net:max-retries 10
+          set net:persist-retries 10
           set net:reconnect-interval-base 5
           set net:reconnect-interval-max 30
           set ftp:passive-mode true
           set ssl:verify-certificate no
-          cd ./public_html/
-          glob -a rm -f *.html
-          rm -rf ./_next
-          rm -rf ./blog
-          rm -rf ./checklists
-          rm -rf ./course
-          rm -rf ./courses
-          rm -rf ./dashboard
-          rm -rf ./downloads
-          rm -rf ./lesson
-          rm -rf ./login
-          rm -rf ./pricing
-          rm -rf ./register
-          rm -rf ./templates
-          rm -rf ./tools
-          cd /
-          mirror --reverse --delete --verbose ./out/ ./public_html/
+          mirror --reverse --delete --verbose --parallel=1 ./out/ ./public_html/
           bye
           EOF
