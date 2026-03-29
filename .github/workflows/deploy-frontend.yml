@@ -1,4 +1,4 @@
-name: Deploy Frontend to Hostinger
+name: Deploy Site to Hostinger
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "frontend/**"
+      - "backend/**"
       - ".github/workflows/deploy-frontend.yml"
   workflow_dispatch:
 
@@ -13,7 +14,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  build-and-deploy:
+  deploy-frontend:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -49,6 +50,30 @@ jobs:
           protocol: ftp
           local-dir: ./frontend/out/
           server-dir: ./public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+  deploy-backend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Upload backend files to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          port: ${{ secrets.HOSTINGER_FTP_PORT }}
+          protocol: ftp
+          local-dir: ./backend/
+          server-dir: ./public_html/backend/
           exclude: |
             **/.git*
             **/.git*/**
