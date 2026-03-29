@@ -11,6 +11,7 @@ const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/backend/api';
 export default function LessonPage() {
   const { user } = useAuth();
   const [lesson, setLesson] = useState(null);
+  const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,15 +27,24 @@ export default function LessonPage() {
       .then((r) => r.json())
       .then((d) => {
         if (d.status === 'success') {
-          setLesson({
+          const nextLesson = {
             ...d.data,
             prev: d.prev,
             next: d.next,
-          });
+          };
+          setLesson(nextLesson);
+
+          return fetch(`${API}/get-course.php?slug=${nextLesson.course_slug}`)
+            .then((r) => r.json())
+            .then((courseData) => {
+              if (courseData.status === 'success') {
+                setCourse(courseData.data);
+              }
+            });
         }
-        setLoading(false);
+        return null;
       })
-      .catch(() => setLoading(false));
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <Navbar />;
@@ -62,6 +72,50 @@ export default function LessonPage() {
     <>
       <Navbar />
       <div className={styles.layout}>
+        {course ? (
+          <aside className={styles.sidebar}>
+            <div className={styles.sidebarCard}>
+              <p className={styles.sidebarEyebrow}>Course Menu</p>
+              <h2 className={styles.sidebarTitle}>{course.name}</h2>
+
+              <Link
+                href={`/course/${lesson.course_slug}`}
+                className={`${styles.introLink} ${lesson.slug === lesson.course_slug ? styles.activeIntroLink : ''}`}
+              >
+                <span className={styles.introLabel}>Intro</span>
+                <span className={styles.introText}>Course Introduction</span>
+              </Link>
+
+              <div className={styles.sidebarSections}>
+                {course.sections?.map((section) => {
+                  const isActiveSection = section.lessons?.some((item) => item.slug === lesson.slug);
+                  return (
+                    <div key={section.id} className={`${styles.sidebarSection} ${isActiveSection ? styles.sidebarSectionActive : ''}`}>
+                      <div className={styles.sidebarSectionHead}>
+                        <span className={styles.sidebarSectionName}>{section.name}</span>
+                        <span className={styles.sidebarSectionCount}>{section.lessons?.length || 0}</span>
+                      </div>
+
+                      <div className={styles.chapterList}>
+                        {section.lessons?.map((item) => (
+                          <Link
+                            key={item.id}
+                            href={`/lesson/${item.slug}`}
+                            className={`${styles.chapterLink} ${item.slug === lesson.slug ? styles.chapterLinkActive : ''}`}
+                          >
+                            <span className={styles.chapterDot} />
+                            <span className={styles.chapterText}>{item.title}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </aside>
+        ) : null}
+
         <main className={styles.content}>
           <div className={styles.contentInner}>
             <div className={styles.lessonMeta}>
