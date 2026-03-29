@@ -1,0 +1,35 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Remove trailing slashes (helps with 500/404 errors)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # 2. Specific Route: /course/any-slug -> course.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^course/([^/]+)/?$ course.html [L,QSA]
+
+    # 3. Specific Route: /lesson/any-slug -> lesson.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^lesson/([^/]+)/?$ lesson.html [L,QSA]
+
+    # 4. Specific Route: /blog/any-slug -> blog.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^blog/([^/]+)/?$ blog.html [L,QSA]
+
+    # 5. General mapping: /pagename -> pagename.html (e.g. /courses -> courses.html)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([^/]+)/?$ $1.html [L,QSA]
+
+</IfModule>
+
+<FilesMatch "^\.env|config\.php$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes

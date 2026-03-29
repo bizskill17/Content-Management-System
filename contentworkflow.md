@@ -1,0 +1,36 @@
+# Tasks
+
+- [ ] Project Planning and Setup [/]
+    - [x] Create [task.md](file:///C:/Users/PANKAJ%20JAIN/.gemini/antigravity/brain/f5c8e28b-03cf-4552-9ecf-29b762f12b99/task.md)
+- [x] Create [implementation_plan.md](file:///d:/Content%20Management%20System/implementation_plan.md)
+- [x] Create [project_overview.md](file:///d:/Content%20Management%20System/project_overview.md)
+- [x] Create [role_of_github.md](file:///d:/Content%20Management%20System/role_of_github.md)
+- [ ] Database Implementation [ ]
+    - [ ] Create [database.sql](file:///d:/Content%20Management%20System/database.sql) with provided schema
+- [ ] Backend Development (PHP) [ ]
+    - [ ] Setup [config.php](file:///d:/Content%20Management%20System/backend/api/config.php) and DB connection
+    - [ ] Implement [upload-image.php](file:///d:/Content%20Management%20System/backend/api/upload-image.php)
+    - [ ] Implement [save-content.php](file:///d:/Content%20Management%20System/backend/api/save-content.php) (Sync API)
+    - [ ] Implement Course/Lesson/Blog/Resource retrieval APIs
+    - [ ] Implement Auth (Register/Login/JWT)
+- [ ] Sync Engine Development (Apps Script) [ ]
+    - [ ] Implement Google Sheet reading logic
+    - [ ] Implement HTML cleaning and YouTube detection
+    - [ ] Implement image pipeline (upload to backend)
+    - [ ] Implement sync process to PHP API
+- [x] Documentation & Handover
+    - [x] Create Setup Guide (Hostinger/Sync)
+    - [x] Document Content Management Workflow
+    - [x] Final Live Site Verification
+- [ ] Frontend Development (Next.js) [ ]
+    - [ ] Initialize Next.js app
+    - [ ] Implement Top Menu (Navbar with Tools, Templates, etc.)
+    - [ ] Create Home Page (Hero + Featured)
+    - [ ] Create Courses Page (Filterable Grid)
+    - [ ] Create Course Player & Detail pages
+    - [ ] Create Blog and Blog detail pages
+    - [ ] Implement Auth integration
+- [ ] Finalization [ ]
+    - [ ] Create `.env` files and Setup Guide
+    - [ ] Create Deployment Steps
+    - [ ] Final verification and Walkthrough

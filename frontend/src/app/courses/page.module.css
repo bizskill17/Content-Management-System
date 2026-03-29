@@ -1,0 +1,83 @@
+.main { padding-top: var(--nav-h); }
+
+.header {
+  background: var(--bg-muted);
+  padding: 64px 0 48px;
+  text-align: center;
+}
+.header .section-sub { margin: 12px auto 0; max-width: 540px; }
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  max-width: 500px;
+  margin: 28px auto 0;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.searchBox:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0,98,255,0.08);
+}
+.searchIcon { font-size: 1rem; color: var(--text-muted); }
+.searchInput {
+  border: none; outline: none;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  color: var(--text);
+  flex: 1;
+  background: transparent;
+}
+.filterSection {
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  background: #fff;
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 10;
+}
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filterBtn {
+  padding: 7px 18px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-muted);
+  border: 1.5px solid transparent;
+  transition: var(--transition);
+}
+.filterBtn:hover { color: var(--primary); background: #e8f0ff; }
+.filterBtn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0,98,255,0.25);
+}
+.gridSection { padding: 48px 0 80px; }
+.count { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 24px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+.skelCard {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+}
+.skelThumb { width: 100%; aspect-ratio: 16/9; }
+.skelLine { border-radius: 4px; }
+.empty {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
