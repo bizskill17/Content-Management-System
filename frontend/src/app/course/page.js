@@ -56,80 +56,116 @@ export default function CourseDetailPage() {
     <>
       <Navbar />
       <main className={styles.main}>
-        <section className={styles.hero}>
-          <div className="container">
-            <div className={styles.breadcrumb}>
-              <Link href="/courses">Courses</Link> / <span>{course.name}</span>
-            </div>
-            <div className={styles.heroGrid}>
-              <div className={styles.heroLeft}>
-                <span className="badge badge-blue">{course.category || 'General'}</span>
-                <h1 className={styles.title}>{course.name}</h1>
-                <div
-                  className="lesson-prose"
-                  style={{ marginTop: '0', color: 'var(--text-muted)' }}
-                  dangerouslySetInnerHTML={{ __html: course.description }}
-                />
-                <div className={styles.meta}>
-                  <span>Lessons {totalLessons}</span>
-                  <span>Sections {course.sections?.length || 0}</span>
-                </div>
-                {course.sections?.[0]?.lessons?.[0] ? (
-                  <Link
-                    href={`/lesson/${course.sections[0].lessons[0].slug}`}
-                    className="btn btn-primary"
-                    style={{ marginTop: '24px' }}
-                  >
-                    Start Learning
-                  </Link>
-                ) : null}
-              </div>
-              <div className={styles.heroRight}>
-                {course.thumbnail ? (
-                  <img src={course.thumbnail} alt={course.name} className={styles.thumb} />
-                ) : (
-                  <div className={styles.thumbPlaceholder}>Course</div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
+        <div className={styles.layout}>
+          <aside className={styles.sidebar}>
+            <div className={styles.sidebarCard}>
+              <p className={styles.sidebarEyebrow}>Course Menu</p>
+              <h2 className={styles.sidebarTitle}>{course.name}</h2>
 
-        <section className={styles.curriculum}>
-          <div className="container">
-            <h2 className={styles.currTitle}>Course Curriculum</h2>
-            <div className={styles.sections}>
-              {course.sections?.map((section) => (
-                <details key={section.id} className={styles.section} open>
-                  <summary className={styles.sectionHead}>
-                    <span className={styles.sectionName}>{section.name}</span>
-                    <span className={styles.sectionCount}>{section.lessons?.length || 0} lessons</span>
-                  </summary>
-                  <ul className={styles.lessonList}>
-                    {section.lessons?.map((lesson) => (
-                      <li key={lesson.id} className={styles.lesson}>
-                        <Link href={`/lesson/${lesson.slug}`} className={styles.lessonLink}>
-                          {lesson.thumbnail ? (
-                            <img src={lesson.thumbnail} alt={lesson.title} className={styles.lessonThumb} />
-                          ) : (
-                            <span className={styles.lessonThumbPlaceholder}>Preview</span>
-                          )}
-                          <span className={styles.lessonIcon}>
-                            {lesson.access_type === 'paid' ? 'Locked' : 'Play'}
-                          </span>
-                          <span className={styles.lessonTitle}>{lesson.title}</span>
-                          <span className={`badge ${lesson.access_type === 'free' ? 'badge-green' : 'badge-orange'}`}>
-                            {lesson.access_type}
-                          </span>
+              <Link href={`/course/${course.slug}`} className={`${styles.introLink} ${styles.activeIntroLink}`}>
+                <span className={styles.introLabel}>Intro</span>
+                <span className={styles.introText}>Course Introduction</span>
+              </Link>
+
+              <div className={styles.sidebarSections}>
+                {course.sections?.map((section) => (
+                  <div key={section.id} className={styles.sidebarSection}>
+                    <div className={styles.sidebarSectionHead}>
+                      <span className={styles.sidebarSectionName}>{section.name}</span>
+                      <span className={styles.sidebarSectionCount}>{section.lessons?.length || 0}</span>
+                    </div>
+
+                    <div className={styles.chapterList}>
+                      {section.lessons?.map((lesson) => (
+                        <Link key={lesson.id} href={`/lesson/${lesson.slug}`} className={styles.chapterLink}>
+                          <span className={styles.chapterDot} />
+                          <span className={styles.chapterText}>{lesson.title}</span>
                         </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ))}
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+          </aside>
+
+          <div className={styles.content}>
+            <section className={styles.hero}>
+              <div className={styles.contentContainer}>
+                <div className={styles.breadcrumb}>
+                  <Link href="/courses">Courses</Link> / <span>{course.name}</span>
+                </div>
+                <div className={styles.heroGrid}>
+                  <div className={styles.heroLeft}>
+                    <span className="badge badge-blue">{course.category || 'General'}</span>
+                    <h1 className={styles.title}>{course.name}</h1>
+                    <div
+                      className="lesson-prose"
+                      style={{ marginTop: '0', color: 'var(--text-muted)' }}
+                      dangerouslySetInnerHTML={{ __html: course.description }}
+                    />
+                    <div className={styles.meta}>
+                      <span>Lessons {totalLessons}</span>
+                      <span>Sections {course.sections?.length || 0}</span>
+                    </div>
+                    {course.sections?.[0]?.lessons?.[0] ? (
+                      <Link
+                        href={`/lesson/${course.sections[0].lessons[0].slug}`}
+                        className="btn btn-primary"
+                        style={{ marginTop: '24px' }}
+                      >
+                        Start Learning
+                      </Link>
+                    ) : null}
+                  </div>
+                  <div className={styles.heroRight}>
+                    {course.thumbnail ? (
+                      <img src={course.thumbnail} alt={course.name} className={styles.thumb} />
+                    ) : (
+                      <div className={styles.thumbPlaceholder}>Course</div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className={styles.curriculum}>
+              <div className={styles.contentContainer}>
+                <h2 className={styles.currTitle}>Course Curriculum</h2>
+                <div className={styles.sections}>
+                  {course.sections?.map((section) => (
+                    <details key={section.id} className={styles.section} open>
+                      <summary className={styles.sectionHead}>
+                        <span className={styles.sectionName}>{section.name}</span>
+                        <span className={styles.sectionCount}>{section.lessons?.length || 0} lessons</span>
+                      </summary>
+                      <ul className={styles.lessonList}>
+                        {section.lessons?.map((lesson) => (
+                          <li key={lesson.id} className={styles.lesson}>
+                            <Link href={`/lesson/${lesson.slug}`} className={styles.lessonLink}>
+                              {lesson.thumbnail ? (
+                                <img src={lesson.thumbnail} alt={lesson.title} className={styles.lessonThumb} />
+                              ) : (
+                                <span className={styles.lessonThumbPlaceholder}>Preview</span>
+                              )}
+                              <span className={styles.lessonIcon}>
+                                {lesson.access_type === 'paid' ? 'Locked' : 'Play'}
+                              </span>
+                              <span className={styles.lessonTitle}>{lesson.title}</span>
+                              <span className={`badge ${lesson.access_type === 'free' ? 'badge-green' : 'badge-orange'}`}>
+                                {lesson.access_type}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </>
