@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -12,19 +13,20 @@ export default function CourseDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get slug from URL path (e.g., /course/my-slug -> my-slug)
     const path = window.location.pathname;
     const slug = path.split('/').filter(Boolean).pop();
-    
-    // If we're just on /course, go back to all courses
+
     if (slug === 'course') {
-        window.location.href = '/courses';
-        return;
+      window.location.href = '/courses';
+      return;
     }
 
     fetch(`${API}/get-course.php?slug=${slug}`)
-      .then(r => r.json())
-      .then(d => { setCourse(d.data); setLoading(false); })
+      .then((r) => r.json())
+      .then((d) => {
+        setCourse(d.data);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 
@@ -36,9 +38,11 @@ export default function CourseDetailPage() {
         <Navbar />
         <main style={{ paddingTop: 'var(--nav-h)', minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '3rem' }}>😕</p>
+            <p style={{ fontSize: '3rem' }}>?</p>
             <h2>Course not found</h2>
-            <Link href="/courses" className="btn btn-primary" style={{ marginTop: '20px', display: 'inline-flex' }}>← Back to Courses</Link>
+            <Link href="/courses" className="btn btn-primary" style={{ marginTop: '20px', display: 'inline-flex' }}>
+              Back to Courses
+            </Link>
           </div>
         </main>
         <Footer />
@@ -46,7 +50,7 @@ export default function CourseDetailPage() {
     );
   }
 
-  const totalLessons = course.sections?.reduce((acc, s) => acc + (s.lessons?.length || 0), 0) || 0;
+  const totalLessons = course.sections?.reduce((acc, section) => acc + (section.lessons?.length || 0), 0) || 0;
 
   return (
     <>
@@ -61,30 +65,31 @@ export default function CourseDetailPage() {
               <div className={styles.heroLeft}>
                 <span className="badge badge-blue">{course.category || 'General'}</span>
                 <h1 className={styles.title}>{course.name}</h1>
-                <div 
-                  className="lesson-prose" 
+                <div
+                  className="lesson-prose"
                   style={{ marginTop: '0', color: 'var(--text-muted)' }}
                   dangerouslySetInnerHTML={{ __html: course.description }}
                 />
                 <div className={styles.meta}>
-                  <span>📚 {totalLessons} Lessons</span>
-                  <span>📂 {course.sections?.length || 0} Sections</span>
+                  <span>Lessons {totalLessons}</span>
+                  <span>Sections {course.sections?.length || 0}</span>
                 </div>
-                {course.sections?.[0]?.lessons?.[0] && (
+                {course.sections?.[0]?.lessons?.[0] ? (
                   <Link
                     href={`/lesson/${course.sections[0].lessons[0].slug}`}
                     className="btn btn-primary"
                     style={{ marginTop: '24px' }}
                   >
-                    🚀 Start Learning
+                    Start Learning
                   </Link>
-                )}
+                ) : null}
               </div>
               <div className={styles.heroRight}>
-                {course.thumbnail
-                  ? <img src={course.thumbnail} alt={course.name} className={styles.thumb} />
-                  : <div className={styles.thumbPlaceholder}>📚</div>
-                }
+                {course.thumbnail ? (
+                  <img src={course.thumbnail} alt={course.name} className={styles.thumb} />
+                ) : (
+                  <div className={styles.thumbPlaceholder}>Course</div>
+                )}
               </div>
             </div>
           </div>
@@ -104,8 +109,13 @@ export default function CourseDetailPage() {
                     {section.lessons?.map((lesson) => (
                       <li key={lesson.id} className={styles.lesson}>
                         <Link href={`/lesson/${lesson.slug}`} className={styles.lessonLink}>
+                          {lesson.thumbnail ? (
+                            <img src={lesson.thumbnail} alt={lesson.title} className={styles.lessonThumb} />
+                          ) : (
+                            <span className={styles.lessonThumbPlaceholder}>Preview</span>
+                          )}
                           <span className={styles.lessonIcon}>
-                            {lesson.access_type === 'paid' ? '🔒' : '▶️'}
+                            {lesson.access_type === 'paid' ? 'Locked' : 'Play'}
                           </span>
                           <span className={styles.lessonTitle}>{lesson.title}</span>
                           <span className={`badge ${lesson.access_type === 'free' ? 'badge-green' : 'badge-orange'}`}>

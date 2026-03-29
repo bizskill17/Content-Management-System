@@ -26,7 +26,7 @@ try {
     $sections = $stmt_sections->fetchAll();
     
     foreach ($sections as &$section) {
-        $stmt_lessons = $conn->prepare("SELECT id, title, slug, access_type, order_no FROM lessons WHERE section_id = ? ORDER BY title ASC, id ASC");
+        $stmt_lessons = $conn->prepare("SELECT id, title, slug, thumbnail, access_type, order_no FROM lessons WHERE section_id = ? ORDER BY title ASC, id ASC");
         $stmt_lessons->execute([$section['id']]);
         $section['lessons'] = $stmt_lessons->fetchAll();
     }
