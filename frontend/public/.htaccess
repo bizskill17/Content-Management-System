@@ -24,7 +24,7 @@
     # 5. Explicit static routes that must resolve to flat HTML exports
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^dashboard/?$ dashboard.html [L,QSA]
+    RewriteRule ^dashboard/?$ dashboard/index.html [L,QSA]
 
     # 6. General mapping: /pagename -> pagename.html (e.g. /courses -> courses.html)
     RewriteCond %{REQUEST_FILENAME} !-f
