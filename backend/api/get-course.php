@@ -21,12 +21,12 @@ try {
     }
     
     // Get sections and lessons
-    $stmt_sections = $conn->prepare("SELECT * FROM sections WHERE course_id = ? ORDER BY order_no ASC");
+    $stmt_sections = $conn->prepare("SELECT * FROM sections WHERE course_id = ? ORDER BY name ASC, id ASC");
     $stmt_sections->execute([$course['id']]);
     $sections = $stmt_sections->fetchAll();
     
     foreach ($sections as &$section) {
-        $stmt_lessons = $conn->prepare("SELECT id, title, slug, access_type, order_no FROM lessons WHERE section_id = ? ORDER BY order_no ASC");
+        $stmt_lessons = $conn->prepare("SELECT id, title, slug, access_type, order_no FROM lessons WHERE section_id = ? ORDER BY title ASC, id ASC");
         $stmt_lessons->execute([$section['id']]);
         $section['lessons'] = $stmt_lessons->fetchAll();
     }

@@ -34,7 +34,7 @@ try {
         JOIN sections s ON l.section_id = s.id
         JOIN courses c ON s.course_id = c.id
         WHERE c.slug = ?
-        ORDER BY s.order_no ASC, l.order_no ASC
+        ORDER BY s.name ASC, l.title ASC, s.id ASC, l.id ASC
     ");
     $stmt_nav->execute([$lesson['course_slug']]);
     $all_lessons = $stmt_nav->fetchAll(PDO::FETCH_ASSOC);
