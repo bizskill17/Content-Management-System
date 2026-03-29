@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: 'Checklists', href: '/checklists' },
   { label: 'Downloads', href: '/downloads' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Dashboard', href: '/dashboard' },
   { label: 'Pricing', href: '/pricing' },
 ];
 
