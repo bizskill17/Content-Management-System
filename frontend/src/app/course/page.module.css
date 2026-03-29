@@ -7,7 +7,7 @@
 }
 
 .sidebar {
-  width: 320px;
+  width: 300px;
   flex-shrink: 0;
   border-right: 1px solid rgba(0, 98, 255, 0.1);
   background: linear-gradient(180deg, #f8fbff, #eef5ff);
@@ -270,7 +270,12 @@
 .lessonIcon { font-size: 0.9rem; width: 24px; text-align: center; flex-shrink: 0; }
 .lessonTitle { flex: 1; font-weight: 500; }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .sidebar { width: 260px; }
+  .contentContainer { padding: 0 20px; }
+}
+
+@media (max-width: 640px) {
   .layout { display: block; }
   .sidebar { display: none; }
   .contentContainer { padding: 0 20px; }

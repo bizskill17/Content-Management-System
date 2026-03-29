@@ -5,7 +5,7 @@
   background: linear-gradient(180deg, #f7faff 0%, #ffffff 24%);
 }
 .sidebar {
-  width: 320px;
+  width: 300px;
   flex-shrink: 0;
   border-right: 1px solid rgba(0, 98, 255, 0.1);
   background: linear-gradient(180deg, #f8fbff, #eef5ff);
@@ -299,7 +299,12 @@
   color: #0284c7;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .sidebar { width: 260px; }
+  .contentInner { padding: 36px 24px 70px; }
+}
+
+@media (max-width: 640px) {
   .sidebar { display: none; }
   .contentInner { padding: 28px 20px 60px; }
   .lessonTitle { font-size: 1.5rem; }
