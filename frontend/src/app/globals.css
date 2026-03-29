@@ -164,7 +164,16 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .lesson-prose h2 { font-size: 1.4rem; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
 .lesson-prose h3 { font-size: 1.15rem; color: var(--primary); }
 .lesson-prose p { margin-bottom: 1.25em; color: #374151; font-size: 1.05rem; }
-.lesson-prose ul, .lesson-prose ol { padding-left: 1.5em; margin-bottom: 1.25em; }
+.lesson-prose ul {
+  list-style: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
+.lesson-prose ol {
+  list-style: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
 .lesson-prose li { margin-bottom: 0.5em; }
 .lesson-prose strong { font-weight: 700; color: var(--text); }
 .lesson-prose a { color: var(--primary); text-decoration: underline; font-weight: 500; }
