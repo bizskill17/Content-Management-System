@@ -21,7 +21,12 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^blog/([^/]+)/?$ blog.html [L,QSA]
 
-    # 5. General mapping: /pagename -> pagename.html (e.g. /courses -> courses.html)
+    # 5. Explicit static routes that must resolve to flat HTML exports
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^dashboard/?$ dashboard.html [L,QSA]
+
+    # 6. General mapping: /pagename -> pagename.html (e.g. /courses -> courses.html)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([^/]+)/?$ $1.html [L,QSA]
