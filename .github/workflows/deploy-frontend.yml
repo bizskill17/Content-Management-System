@@ -67,7 +67,7 @@ jobs:
           rm -rf ./register
           rm -rf ./templates
           rm -rf ./tools
-          cd -
+          cd /
           mirror --reverse --delete --verbose ./out/ ./public_html/
           bye
           EOF
