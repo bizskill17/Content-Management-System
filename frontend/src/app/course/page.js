@@ -59,11 +59,11 @@ export default function CourseDetailPage() {
         <div className={styles.layout}>
           <aside className={styles.sidebar}>
             <div className={styles.sidebarCard}>
-              <p className={styles.sidebarEyebrow}>Course Menu</p>
+              <p className={styles.sidebarEyebrow}>Course Outline</p>
               <h2 className={styles.sidebarTitle}>{course.name}</h2>
 
               <Link href={`/course/${course.slug}`} className={`${styles.introLink} ${styles.activeIntroLink}`}>
-                <span className={styles.introLabel}>Intro</span>
+                <span className={styles.introLabel}>Introduction</span>
                 <span className={styles.introText}>Course Introduction</span>
               </Link>
 

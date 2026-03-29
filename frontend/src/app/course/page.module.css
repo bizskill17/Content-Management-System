@@ -20,10 +20,9 @@
   overflow-y: auto;
   margin: 16px;
   padding: 20px 18px 24px;
-  border-radius: 24px;
+  border-radius: 20px;
   background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.72), transparent 38%),
-    linear-gradient(180deg, #ffffff, #f7fbff);
+    linear-gradient(180deg, #ffffff, #f8fbff);
   border: 1px solid rgba(0, 98, 255, 0.12);
   box-shadow: 0 18px 40px rgba(0, 98, 255, 0.08);
 }
@@ -86,10 +85,8 @@
 }
 
 .sidebarSection {
-  padding: 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .sidebarSectionHead {
@@ -100,9 +97,11 @@
 }
 
 .sidebarSectionName {
-  font-size: 0.92rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  color: #0f172a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1e3a8a;
 }
 
 .sidebarSectionCount {
@@ -121,16 +120,17 @@
 .chapterList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 6px;
+  margin-top: 10px;
+  padding-left: 10px;
 }
 
 .chapterLink {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
+  padding: 8px 10px;
+  border-radius: 12px;
   color: #475569;
   transition: var(--transition);
 }
