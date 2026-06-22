@@ -34,6 +34,6 @@ jobs:
           set net:reconnect-interval-max 30
           set ftp:passive-mode true
           set ssl:verify-certificate no
-          mirror --reverse --delete --verbose --exclude-glob .htaccess ./backend/ ./public_html/backend/
+          mirror --reverse --delete --verbose --exclude-glob .htaccess ./backend/ ./backend/
           bye
           EOF
