@@ -1,0 +1,389 @@
+.shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(0, 98, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, #f4f8ff 0%, #ffffff 28%, #f8fafc 100%);
+}
+
+.hero {
+  padding: calc(var(--nav-h) + 48px) 0 40px;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  align-items: end;
+}
+
+.heroCopy h1 {
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 1.02;
+  margin: 14px 0 16px;
+}
+
+.heroCopy p {
+  max-width: 680px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.heroActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.statCard,
+.panel,
+.composer,
+.postCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: var(--shadow-md);
+  border-radius: 24px;
+}
+
+.statCard {
+  padding: 24px;
+}
+
+.statCard strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.statCard span {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) 290px;
+  gap: 24px;
+  align-items: start;
+  padding-bottom: 56px;
+}
+
+.sidebar,
+.rail,
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel {
+  padding: 20px;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.panelHead h2 {
+  font-size: 1rem;
+}
+
+.panelHead span {
+  color: var(--text-light);
+  font-size: 0.86rem;
+}
+
+.groupButton {
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #fff;
+  transition: var(--transition);
+  margin-bottom: 12px;
+}
+
+.groupButton:hover,
+.groupButtonActive {
+  transform: translateY(-2px);
+  border-color: var(--group-accent, var(--primary));
+  box-shadow: 0 14px 32px rgba(0, 98, 255, 0.12);
+}
+
+.groupButton strong,
+.groupButton span,
+.groupButton small {
+  display: block;
+}
+
+.groupButton span,
+.groupButton small {
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.contributorList,
+.spotlightList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contributorCard,
+.spotlightCard,
+.memberLink {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.contributorCard,
+.spotlightCard {
+  padding: 12px;
+  border-radius: 18px;
+  background: #f8fafc;
+  transition: var(--transition);
+}
+
+.contributorCard:hover,
+.spotlightCard:hover,
+.memberLink:hover {
+  transform: translateY(-2px);
+}
+
+.avatar,
+.composerAvatar,
+.commentAvatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary), #00c2ff);
+  flex-shrink: 0;
+}
+
+.composerAvatar {
+  width: 52px;
+  height: 52px;
+}
+
+.commentAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+}
+
+.composer {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+}
+
+.composerBody p {
+  color: var(--text-muted);
+  margin: 6px 0 14px;
+}
+
+.composerActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.composerActions button {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #eef4ff;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.feedHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.feedHeader h2 {
+  font-size: 1.5rem;
+}
+
+.feedHeader p {
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.postList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.postCard {
+  padding: 20px;
+}
+
+.postHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
+.memberLink p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.groupPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pill-accent) 14%, white);
+  color: var(--pill-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.postBody h3 {
+  font-size: 1.3rem;
+  margin: 18px 0 10px;
+  line-height: 1.25;
+}
+
+.postBody p {
+  color: #374151;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tagRow span {
+  font-size: 0.84rem;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f4f6fb;
+  color: #546174;
+}
+
+.reactionRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.reactionButton {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: #4b5563;
+  background: #fff;
+  font-weight: 700;
+}
+
+.reactionButtonActive {
+  border-color: var(--primary);
+  background: #eef4ff;
+  color: var(--primary);
+}
+
+.commentBlock {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comment {
+  display: flex;
+  gap: 12px;
+}
+
+.commentBody {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.commentBody span {
+  margin-left: 8px;
+  color: var(--text-light);
+  font-size: 0.84rem;
+}
+
+.commentBody p {
+  color: #475569;
+  margin-top: 4px;
+}
+
+.challengeCard {
+  padding: 16px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: #fff;
+}
+
+.challengeCard p,
+.challengeCard small {
+  display: block;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 1120px) {
+  .heroInner,
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar,
+  .rail {
+    order: 2;
+  }
+
+  .feed {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: calc(var(--nav-h) + 24px);
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .feedHeader,
+  .postHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

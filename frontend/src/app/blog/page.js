@@ -7,46 +7,48 @@ import Link from 'next/link';
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/backend/api';
 
 export default function BlogPage() {
-  const [data, setData] = useState(null); // Can be array (list) or object (detail)
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDetail, setIsDetail] = useState(false);
 
   useEffect(() => {
-    // Determine if we are on the list or detail
     const path = window.location.pathname;
     const parts = path.split('/').filter(Boolean);
-    
-    // /blog -> ["blog"] -> length 1
-    // /blog/my-post -> ["blog", "my-post"] -> length 2
     const slug = parts.length > 1 ? parts[1] : null;
 
     if (slug) {
-      // Detail View
       setIsDetail(true);
       fetch(`${API}/get-blog.php?slug=${slug}`)
-        .then(r => r.json())
-        .then(res => { setData(res.data); setLoading(false); })
+        .then((r) => r.json())
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
         .catch(() => setLoading(false));
     } else {
-      // List View
       setIsDetail(false);
       fetch(`${API}/get-blog.php`)
-        .then(r => r.json())
-        .then(res => { setData(res.data); setLoading(false); })
+        .then((r) => r.json())
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
         .catch(() => setLoading(false));
     }
   }, []);
 
   if (loading) return <Navbar />;
 
-  // --- DETAIL VIEW ---
   if (isDetail) {
-    if (!data) return (
-      <div style={{ textAlign: 'center', padding: '100px 20px' }}>
-        <Navbar /><h1 style={{marginTop: '50px'}}>Article Not Found</h1>
-        <Link href="/blog" className="btn btn-primary" style={{marginTop:'20px'}}>Back to Blog</Link>
-      </div>
-    );
+    if (!data) {
+      return (
+        <div style={{ textAlign: 'center', padding: '100px 20px' }}>
+          <Navbar />
+          <h1 style={{ marginTop: '50px' }}>Article Not Found</h1>
+          <Link href="/blog" className="btn btn-primary" style={{ marginTop: '20px' }}>Back to Blog</Link>
+        </div>
+      );
+    }
 
     return (
       <>
@@ -67,7 +69,6 @@ export default function BlogPage() {
     );
   }
 
-  // --- LIST VIEW ---
   return (
     <>
       <Navbar />
@@ -83,10 +84,10 @@ export default function BlogPage() {
         <section style={{ padding: '80px 0' }}>
           <div className="container">
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '30px' }}>
-              {data && data.length > 0 ? data.map(post => (
+              {data && data.length > 0 ? data.map((post) => (
                 <div key={post.id} style={{ background: '#fff', borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ position: 'relative', aspectRatio: '16/9', background: 'var(--bg-muted)', overflow: 'hidden' }}>
-                    {post.thumbnail 
+                    {post.thumbnail
                       ? <img src={post.thumbnail} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f0f7ff, #f9f0ff)' }}>
                           <span style={{ fontSize: '2.5rem' }}>📝</span>
@@ -96,7 +97,7 @@ export default function BlogPage() {
                   <div style={{ padding: '25px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '12px', lineHeight: '1.4' }}>{post.title}</h3>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '20px', flex: 1, display: '-webkit-box', WebkitLineClamp: '3', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        {post.meta_description || "Read our latest blog post about AI and automation..."}
+                      {post.meta_description || 'Read our latest blog post about AI and automation...'}
                     </p>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto' }}>
                       <span style={{ fontSize: '0.8rem', color: 'var(--text-light)' }}>{new Date(post.created_at).toLocaleDateString()}</span>
@@ -104,7 +105,7 @@ export default function BlogPage() {
                     </div>
                   </div>
                 </div>
-              )) : <p style={{textAlign: 'center', width: '100%', gridColumn: '1/-1', padding: '40px'}}>No blog posts found yet.</p>}
+              )) : <p style={{ textAlign: 'center', width: '100%', gridColumn: '1/-1', padding: '40px' }}>No blog posts found yet.</p>}
             </div>
           </div>
         </section>

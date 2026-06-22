@@ -1,37 +1,11 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+RewriteEngine On
 
-    # 1. Remove trailing slashes (helps with 500/404 errors)
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)/$ /$1 [L,R=301]
+# Keep real files and folders working normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-    # 2. Specific Route: /course/any-slug -> course.html
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^course/([^/]+)/?$ course.html [L,QSA]
-
-    # 3. Specific Route: /lesson/any-slug -> lesson.html
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^lesson/([^/]+)/?$ lesson.html [L,QSA]
-
-    # 4. Specific Route: /blog/any-slug -> blog.html
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^blog/([^/]+)/?$ blog.html [L,QSA]
-
-    # 5. Explicit exported app routes must resolve to flat HTML files
-    RewriteRule ^(blog|checklists|courses|dashboard|downloads|login|pricing|register|templates|tools)/?$ $1.html [L,QSA]
-
-    # 6. General mapping: /pagename -> pagename.html (fallback)
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^([^/]+)/?$ $1.html [L,QSA]
-
-</IfModule>
-
-<FilesMatch "^\.env|config\.php$">
-    Require all denied
-</FilesMatch>
-
-Options -Indexes
+# Pretty client-side content routes -> exported static pages
+RewriteRule ^course/[^/]+/?$ /course.html [L]
+RewriteRule ^lesson/[^/]+/?$ /lesson.html [L]
+RewriteRule ^blog/[^/]+/?$ /blog.html [L]

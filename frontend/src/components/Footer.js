@@ -21,6 +21,7 @@ export default function Footer() {
         <div className={styles.col}>
           <h4>Company</h4>
           <Link href="/blog">Blog</Link>
+          <Link href="/community">JhatPat AI Club</Link>
           <Link href="/about">About Us</Link>
           <Link href="/contact">Contact</Link>
         </div>

@@ -310,7 +310,7 @@
 }
 
 /* Responsive Content Styles */
-:global(.lesson-prose) img {
+.contentInner :global(.lesson-prose) img {
   max-width: 100%;
   height: auto !important;
   border-radius: 12px;
@@ -318,7 +318,7 @@
   display: block;
 }
 
-:global(.lesson-prose) iframe {
+.contentInner :global(.lesson-prose) iframe {
   width: 100% !important;
   max-width: 100%;
   aspect-ratio: 16 / 9;
@@ -328,7 +328,7 @@
   border: 1px solid var(--border);
 }
 
-:global(.lesson-prose) p {
+.contentInner :global(.lesson-prose) p {
   line-height: 1.7;
   margin-bottom: 20px;
   color: #374151;
