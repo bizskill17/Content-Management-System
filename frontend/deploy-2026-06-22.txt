@@ -1,0 +1,1 @@
+Frontend deploy marker for corrected Hostinger FTP path on 2026-06-22.
