@@ -1,2 +1,3 @@
 Deploy community backend
 Redeploy triggered after Hostinger File Manager save returned 405 on 2026-06-22.
+Redeploy triggered after updating Hostinger FTP secrets on 2026-06-22.
