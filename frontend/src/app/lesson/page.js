@@ -15,14 +15,14 @@ export default function LessonPage() {
   useEffect(() => {
     // Get slug from URL path (e.g., /lesson/my-slug -> my-slug)
     const path = window.location.pathname;
-    const slug = path.split('/').filter(Boolean).pop();
+    const slug = new URLSearchParams(window.location.search).get('slug') || path.split('/').filter(Boolean).pop();
     
     if (slug === 'lesson') {
         window.location.href = '/courses';
         return;
     }
 
-    fetch(`${API}/get-lesson.php?slug=${slug}`)
+    fetch(`${API}/get-lesson.php?slug=${encodeURIComponent(slug)}`, { credentials: 'include' })
       .then(r => r.json())
       .then(d => { 
         if (d.status === 'success') {
@@ -31,7 +31,7 @@ export default function LessonPage() {
             prev: d.prev,
             next: d.next
           });
-        }
+        } else if (d.data) setLesson(d.data);
         setLoading(false); 
       })
       .catch(() => setLoading(false));
@@ -86,19 +86,19 @@ export default function LessonPage() {
             <div className={styles.lessonNavigation}>
               <div className={styles.navMain}>
                 {lesson.prev ? (
-                  <Link href={`/lesson/${lesson.prev.slug}`} className={styles.navButton}>
+                  <Link href={`/lesson?slug=${encodeURIComponent(lesson.prev.slug)}`} className={styles.navButton}>
                     <span className={styles.navSubtitle}>&larr; Previous Chapter</span>
                     <span className={styles.navBtnTitle}>{lesson.prev.title}</span>
                   </Link>
                 ) : <div className={styles.navPlaceholder} />}
 
-                <Link href={`/course/${lesson.course_slug}`} className={styles.backLink}>
+                <Link href={`/course?slug=${encodeURIComponent(lesson.course_slug)}`} className={styles.backLink}>
                   <span className={styles.backIcon}>☰</span>
                   Go to Sections
                 </Link>
 
                 {lesson.next ? (
-                  <Link href={`/lesson/${lesson.next.slug}`} className={`${styles.navButton} ${styles.navNext}`}>
+                  <Link href={`/lesson?slug=${encodeURIComponent(lesson.next.slug)}`} className={`${styles.navButton} ${styles.navNext}`}>
                     <span className={styles.navSubtitle}>Next Chapter &rarr;</span>
                     <span className={styles.navBtnTitle}>{lesson.next.title}</span>
                   </Link>

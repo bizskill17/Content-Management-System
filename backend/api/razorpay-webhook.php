@@ -6,8 +6,11 @@ include 'config.php';
 $post_data = file_get_contents('php://input');
 $data = json_decode($post_data);
 
-// Ideally, verify the webhook signature here using RAZORPAY_WEBHOOK_SECRET
-// For initial development/test, we'll process the data if it looks valid.
+$signature = $_SERVER['HTTP_X_RAZORPAY_SIGNATURE'] ?? '';
+$expected = hash_hmac('sha256', $post_data, RAZORPAY_WEBHOOK_SECRET);
+if (!RAZORPAY_WEBHOOK_SECRET || !$signature || !hash_equals($expected, $signature)) {
+    json_response(["status" => "error", "message" => "Invalid webhook signature"], 401);
+}
 
 if (isset($data->event)) {
     if ($data->event === 'subscription.authenticated' || $data->event === 'subscription.charged') {

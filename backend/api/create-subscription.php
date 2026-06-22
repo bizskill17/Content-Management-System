@@ -1,10 +1,9 @@
 <?php
 // backend/api/create-subscription.php
 include 'config.php';
+$user = require_user($conn);
 
-$data = json_decode(file_get_contents("php://input"));
-
-if (!empty($data->user_id) && !empty($data->email)) {
+if (!empty($user['email'])) {
     // We use the Razorpay Subscription API
     // Request for creating a subscription
     $api_url = "https://api.razorpay.com/v1/subscriptions";
@@ -15,7 +14,7 @@ if (!empty($data->user_id) && !empty($data->email)) {
         "quantity" => 1,
         "customer_notify" => 1,
         "notes" => [
-            "user_id" => $data->user_id
+            "user_id" => $user['id']
         ]
     ];
 
@@ -43,6 +42,6 @@ if (!empty($data->user_id) && !empty($data->email)) {
         echo json_encode(["status" => "error", "message" => "Subscription creation failed", "details" => $response]);
     }
 } else {
-    echo json_encode(["status" => "error", "message" => "User ID and Email required"]);
+    json_response(["status" => "error", "message" => "Authenticated user required"], 401);
 }
 ?>

@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import styles from './page.module.css';
+import { apiRequest } from '@/lib/communityApi';
 
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/backend/api';
 
@@ -22,21 +23,20 @@ export default function RegisterPage() {
         setLoading(true);
 
         try {
-            const res = await fetch(`${API}/register.php`, {
+            const data = await apiRequest('register.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password, mobile }),
             });
-            const data = await res.json();
 
             if (data.status === 'success') {
-                login(data.user);
-                window.location.href = '/courses';
+                login(data.user, data.csrf_token);
+                window.location.href = '/community';
             } else {
                 setError(data.message || 'Registration failed');
             }
         } catch (err) {
-            setError('Something went wrong. Please try again.');
+            setError(err.message || 'Something went wrong. Please try again.');
         } finally {
             setLoading(false);
         }

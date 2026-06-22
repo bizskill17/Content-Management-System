@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
 import styles from './page.module.css';
+import { apiRequest } from '@/lib/communityApi';
 
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/backend/api';
 
@@ -19,15 +20,11 @@ export default function PricingPage() {
         setLoading(true);
         try {
             // 1. Create Subscription on our backend
-            const res = await fetch(`${API}/create-subscription.php`, {
+            const data = await apiRequest('create-subscription.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    user_id: user.id,
-                    email: user.email 
-                }),
+                body: '{}',
             });
-            const data = await res.json();
 
             if (data.status === 'success') {
                 // 2. Open Razorpay Checkout

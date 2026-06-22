@@ -14,7 +14,7 @@ export default function CourseDetailPage() {
   useEffect(() => {
     // Get slug from URL path (e.g., /course/my-slug -> my-slug)
     const path = window.location.pathname;
-    const slug = path.split('/').filter(Boolean).pop();
+    const slug = new URLSearchParams(window.location.search).get('slug') || path.split('/').filter(Boolean).pop();
     
     // If we're just on /course, go back to all courses
     if (slug === 'course') {
@@ -72,7 +72,7 @@ export default function CourseDetailPage() {
                 </div>
                 {course.sections?.[0]?.lessons?.[0] && (
                   <Link
-                    href={`/lesson/${course.sections[0].lessons[0].slug}`}
+                    href={`/lesson?slug=${encodeURIComponent(course.sections[0].lessons[0].slug)}`}
                     className="btn btn-primary"
                     style={{ marginTop: '24px' }}
                   >
@@ -103,7 +103,7 @@ export default function CourseDetailPage() {
                   <ul className={styles.lessonList}>
                     {section.lessons?.map((lesson) => (
                       <li key={lesson.id} className={styles.lesson}>
-                        <Link href={`/lesson/${lesson.slug}`} className={styles.lessonLink}>
+                        <Link href={`/lesson?slug=${encodeURIComponent(lesson.slug)}`} className={styles.lessonLink}>
                           <span className={styles.lessonIcon}>
                             {lesson.access_type === 'paid' ? '🔒' : '▶️'}
                           </span>

@@ -19,6 +19,8 @@ next-env.d.ts
 
 # Environment and deployment files
 .env*
+!.env.example
+!**/.env.example
 .vercel/
 *.pem
 

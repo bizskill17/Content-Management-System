@@ -27,6 +27,19 @@ try {
         exit();
     }
 
+    if ($lesson['access_type'] === 'paid') {
+        $viewer = current_user($conn);
+        if (!$viewer || ($viewer['role'] !== 'admin' && $viewer['subscription_status'] !== 'active')) {
+            unset($lesson['html_content']);
+            json_response([
+                "status" => "error",
+                "reason" => $viewer ? "subscription_required" : "login_required",
+                "message" => "An active subscription is required for this lesson",
+                "data" => $lesson
+            ], 403);
+        }
+    }
+
     // 2. Get all lessons in this course ordered correctly to find prev/next
     $stmt_nav = $conn->prepare("
         SELECT l.slug, l.title 

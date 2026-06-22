@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import styles from '../register/page.module.css'; // Reuse register styles
+import { apiRequest } from '@/lib/communityApi';
 
 const API = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost/backend/api';
 
@@ -20,21 +21,21 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
-            const res = await fetch(`${API}/login.php`, {
+            const data = await apiRequest('login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
-            const data = await res.json();
 
             if (data.status === 'success') {
-                login(data.user);
-                window.location.href = '/courses';
+                login(data.user, data.csrf_token);
+                const redirect = new URLSearchParams(window.location.search).get('redirect');
+                window.location.href = redirect && redirect.startsWith('/') ? redirect : '/community';
             } else {
                 setError(data.message || 'Login failed');
             }
         } catch (err) {
-            setError('Something went wrong. Please try again.');
+            setError(err.message || 'Something went wrong. Please try again.');
         } finally {
             setLoading(false);
         }
