@@ -28,12 +28,13 @@ jobs:
         run: |
           lftp -u "${{ secrets.HOSTINGER_FTP_USERNAME }}","${{ secrets.HOSTINGER_FTP_PASSWORD }}" -p "${{ secrets.HOSTINGER_FTP_PORT }}" "${{ secrets.HOSTINGER_FTP_SERVER }}" <<EOF
           set cmd:fail-exit true
-          set net:timeout 20
-          set net:max-retries 5
+          set net:timeout 60
+          set net:max-retries 10
+          set net:persist-retries 10
           set net:reconnect-interval-base 5
           set net:reconnect-interval-max 30
           set ftp:passive-mode true
           set ssl:verify-certificate no
-          mirror --reverse --delete --verbose --exclude-glob .htaccess ./backend/ ./backend/
+          mirror --reverse --verbose --parallel=1 --exclude-glob .htaccess ./backend/ ./backend/
           bye
           EOF

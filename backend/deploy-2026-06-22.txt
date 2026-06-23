@@ -3,3 +3,4 @@ Redeploy triggered after Hostinger File Manager save returned 405 on 2026-06-22.
 Redeploy triggered after updating Hostinger FTP secrets on 2026-06-22.
 Redeploy triggered after FTP secret correction on 2026-06-22.
 Redeploy triggered after correcting FTP upload path on 2026-06-22.
+Redeploy triggered after backend FTP retry hardening on 2026-06-23.
