@@ -107,7 +107,7 @@ export default function CommunityFeed({ spaceRoute = false }) {
     <Navbar />
     <main className={styles.shell}>
       <aside className={styles.sidebar}>
-        <h3>Community</h3>
+        <h3>Categories</h3>
         <Link className={!spaceSlug ? styles.activeSpace : ''} href="/community">🏠 All Feed</Link>
         {spaces.map((space) => <Link className={space.slug === spaceSlug ? styles.activeSpace : ''} href={`/community/space?slug=${encodeURIComponent(space.slug)}`} key={space.id}>
           <span>{space.icon || '💬'}</span><span>{space.name}<small>{space.post_count} posts</small></span>
