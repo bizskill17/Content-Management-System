@@ -3,3 +3,4 @@
 @media(max-width:800px){.shell{grid-template-columns:1fr;padding:0 14px;margin-top:calc(var(--nav-h) + 16px)}.sidebar{position:static;display:flex;overflow:auto;gap:6px}.sidebar h3,.sidebar small{display:none}.sidebar a{white-space:nowrap}.rightRail{grid-column:auto;display:flex}.feedHeader{align-items:flex-start;flex-direction:column}.composer{padding:13px}.avatar{width:36px;height:36px;flex-basis:36px}.gate{flex-direction:column;align-items:flex-start}.adminGrid{grid-template-columns:1fr}.mediaGrid{grid-template-columns:1fr}}
 .composeExtras>select{flex:1;min-width:150px;border:1px solid var(--border);padding:8px;border-radius:8px;background:#fff}
 .formatBar{display:flex;gap:4px}.formatBar button{width:30px;height:28px;border-radius:6px;background:var(--bg-muted);font-weight:700}.formatBar button:hover{background:#e8f0ff;color:var(--primary)}
+.railPanel h2,.railPanel p,.railPost strong,.railPost span{color:var(--primary)}
