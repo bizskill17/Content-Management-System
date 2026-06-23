@@ -35,7 +35,10 @@ export default function Navbar() {
       .then((response) => response.ok ? response.json() : Promise.reject(new Error('Menu request failed')))
       .then((result) => {
         if (!ignore && Array.isArray(result.data) && result.data.length) {
-          setNavLinks(result.data.map((item) => ({ label: item.label, href: item.href })));
+          setNavLinks(result.data.map((item) => ({
+            label: item.item_key === 'community' ? 'Feed' : item.label,
+            href: item.href,
+          })));
         }
       })
       .catch(() => {});
