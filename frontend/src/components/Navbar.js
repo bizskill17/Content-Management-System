@@ -8,7 +8,7 @@ import styles from './Navbar.module.css';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Courses', href: '/courses' },
-  { label: 'Community', href: '/community' },
+  { label: 'Feed', href: '/community' },
   { label: 'Tools', href: '/tools' },
   { label: 'Templates', href: '/templates' },
   { label: 'Checklists', href: '/checklists' },

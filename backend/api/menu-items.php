@@ -4,7 +4,7 @@ require_once 'config.php';
 $default_menu_items = [
     ['key' => 'home', 'label' => 'Home', 'href' => '/', 'sort_order' => 10],
     ['key' => 'courses', 'label' => 'Courses', 'href' => '/courses', 'sort_order' => 20],
-    ['key' => 'community', 'label' => 'Community', 'href' => '/community', 'sort_order' => 30],
+    ['key' => 'community', 'label' => 'Feed', 'href' => '/community', 'sort_order' => 30],
     ['key' => 'tools', 'label' => 'Tools', 'href' => '/tools', 'sort_order' => 40],
     ['key' => 'templates', 'label' => 'Templates', 'href' => '/templates', 'sort_order' => 50],
     ['key' => 'checklists', 'label' => 'Checklists', 'href' => '/checklists', 'sort_order' => 60],
