@@ -168,6 +168,51 @@ INSERT INTO feed_access_settings (tier, access_mode, post_limit) VALUES
     ('paid', 'unlimited', NULL)
 ON DUPLICATE KEY UPDATE tier = VALUES(tier);
 
+CREATE TABLE IF NOT EXISTS nav_menu_items (
+    item_key VARCHAR(80) PRIMARY KEY,
+    label VARCHAR(120) NOT NULL,
+    href VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    is_visible TINYINT(1) NOT NULL DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO nav_menu_items (item_key, label, href, sort_order, is_visible) VALUES
+    ('home', 'Home', '/', 10, 1),
+    ('courses', 'Courses', '/courses', 20, 1),
+    ('community', 'Community', '/community', 30, 1),
+    ('tools', 'Tools', '/tools', 40, 1),
+    ('templates', 'Templates', '/templates', 50, 1),
+    ('checklists', 'Checklists', '/checklists', 60, 1),
+    ('downloads', 'Downloads', '/downloads', 70, 1),
+    ('blog', 'Blog', '/blog', 80, 1),
+    ('pricing', 'Pricing', '/pricing', 90, 1)
+ON DUPLICATE KEY UPDATE label = VALUES(label), href = VALUES(href), sort_order = VALUES(sort_order);
+
+CREATE TABLE IF NOT EXISTS footer_menu_items (
+    item_key VARCHAR(80) PRIMARY KEY,
+    section_label VARCHAR(120) NOT NULL,
+    label VARCHAR(120) NOT NULL,
+    href VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    is_visible TINYINT(1) NOT NULL DEFAULT 1,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO footer_menu_items (item_key, section_label, label, href, sort_order, is_visible) VALUES
+    ('learn_courses', 'Learn', 'All Courses', '/courses', 10, 1),
+    ('learn_tools', 'Learn', 'AI Tools', '/tools', 20, 1),
+    ('learn_templates', 'Learn', 'Templates', '/templates', 30, 1),
+    ('learn_checklists', 'Learn', 'Checklists', '/checklists', 40, 1),
+    ('learn_downloads', 'Learn', 'Downloads', '/downloads', 50, 1),
+    ('company_blog', 'Company', 'Blog', '/blog', 10, 1),
+    ('company_about', 'Company', 'About Us', '/about', 20, 1),
+    ('company_contact', 'Company', 'Contact', '/contact', 30, 1),
+    ('account_login', 'Account', 'Login', '/login', 10, 1),
+    ('account_register', 'Account', 'Sign Up Free', '/register', 20, 1),
+    ('account_dashboard', 'Account', 'My Dashboard', '/dashboard', 30, 1)
+ON DUPLICATE KEY UPDATE section_label = VALUES(section_label), label = VALUES(label), href = VALUES(href), sort_order = VALUES(sort_order);
+
 CREATE TABLE IF NOT EXISTS feed_post_views (
     user_id INT NOT NULL,
     post_id BIGINT NOT NULL,

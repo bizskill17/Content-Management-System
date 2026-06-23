@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { API_BASE } from '@/lib/communityApi';
 import styles from './Navbar.module.css';
 
 const NAV_LINKS = [
@@ -19,12 +20,26 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navLinks, setNavLinks] = useState(NAV_LINKS);
   const { user, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    let ignore = false;
+    fetch(`${API_BASE}/menu-items.php`, { cache: 'no-store', credentials: 'include' })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error('Menu request failed')))
+      .then((result) => {
+        if (!ignore && Array.isArray(result.data) && result.data.length) {
+          setNavLinks(result.data.map((item) => ({ label: item.label, href: item.href })));
+        }
+      })
+      .catch(() => {});
+    return () => { ignore = true; };
   }, []);
 
   return (
@@ -36,7 +51,7 @@ export default function Navbar() {
         </Link>
 
         <ul className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
-          {NAV_LINKS.map((l) => (
+          {navLinks.map((l) => (
             <li key={l.href}>
               <Link href={l.href} className={styles.link} onClick={() => setMenuOpen(false)}>
                 {l.label}
