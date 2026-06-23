@@ -8,7 +8,7 @@ import styles from './Navbar.module.css';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Courses', href: '/courses' },
-  { label: 'Feed', href: '/community' },
+  { label: 'Feed', href: '/community/' },
   { label: 'Tools', href: '/tools' },
   { label: 'Templates', href: '/templates' },
   { label: 'Checklists', href: '/checklists' },
@@ -37,7 +37,7 @@ export default function Navbar() {
         if (!ignore && Array.isArray(result.data) && result.data.length) {
           setNavLinks(result.data.map((item) => ({
             label: item.item_key === 'community' ? 'Feed' : item.label,
-            href: item.href,
+            href: item.item_key === 'community' ? '/community/' : item.href,
           })));
         }
       })

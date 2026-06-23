@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS nav_menu_items (
 INSERT INTO nav_menu_items (item_key, label, href, sort_order, is_visible) VALUES
     ('home', 'Home', '/', 10, 1),
     ('courses', 'Courses', '/courses', 20, 1),
-    ('community', 'Feed', '/community', 30, 1),
+    ('community', 'Feed', '/community/', 30, 1),
     ('tools', 'Tools', '/tools', 40, 1),
     ('templates', 'Templates', '/templates', 50, 1),
     ('checklists', 'Checklists', '/checklists', 60, 1),

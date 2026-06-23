@@ -93,6 +93,16 @@ export default function CommunityFeed({ spaceRoute = false }) {
   };
 
   const currentSpace = spaces.find((space) => space.slug === spaceSlug);
+  const recentPosts = [...posts]
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    .slice(0, 5);
+  const trendingPosts = [...posts]
+    .sort((a, b) => {
+      const score = (post) => (Number(post.is_pinned) ? 1000 : 0) + (Number(post.reaction_count) * 3) + (Number(post.comment_count) * 2);
+      return score(b) - score(a) || (new Date(b.created_at) - new Date(a.created_at));
+    })
+    .slice(0, 5);
+  const sidebarPostLink = (post) => `/community/post?id=${post.id}`;
   return <>
     <Navbar />
     <main className={styles.shell}>
@@ -139,6 +149,28 @@ export default function CommunityFeed({ spaceRoute = false }) {
         {loading && <div className={styles.loading}>Loading community posts…</div>}
         {cursor && !loading && <button className={`btn btn-outline ${styles.loadMore}`} onClick={() => loadFeed(true, cursor)}>Load more</button>}
       </section>
+
+      <aside className={styles.rightRail}>
+        <section className={styles.railPanel}>
+          <h2>Trending posts</h2>
+          {trendingPosts.length ? trendingPosts.map((post) => (
+            <Link className={styles.railPost} href={sidebarPostLink(post)} key={`trending-${post.id}`}>
+              <strong>{post.excerpt || 'Open post'}</strong>
+              <span>{post.space_name} | {post.reaction_count} likes | {post.comment_count} comments</span>
+            </Link>
+          )) : <p>No trending posts yet.</p>}
+        </section>
+
+        <section className={styles.railPanel}>
+          <h2>Recent posts</h2>
+          {recentPosts.length ? recentPosts.map((post) => (
+            <Link className={styles.railPost} href={sidebarPostLink(post)} key={`recent-${post.id}`}>
+              <strong>{post.excerpt || 'Open post'}</strong>
+              <span>{post.author_name} | {new Date(post.created_at).toLocaleDateString()}</span>
+            </Link>
+          )) : <p>No recent posts yet.</p>}
+        </section>
+      </aside>
     </main>
     <Footer />
   </>;
