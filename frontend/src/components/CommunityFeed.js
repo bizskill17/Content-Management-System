@@ -93,6 +93,11 @@ export default function CommunityFeed({ spaceRoute = false }) {
   };
 
   const currentSpace = spaces.find((space) => space.slug === spaceSlug);
+  const headingTitle = currentSpace?.name || 'All';
+  const headingPostCount = currentSpace
+    ? Number(currentSpace.post_count || 0)
+    : spaces.reduce((total, space) => total + Number(space.post_count || 0), 0);
+  const headingPostCountLabel = spaces.length || currentSpace ? ` (${headingPostCount} ${headingPostCount === 1 ? 'post' : 'posts'})` : '';
   const recentPosts = [...posts]
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     .slice(0, 5);
@@ -117,7 +122,7 @@ export default function CommunityFeed({ spaceRoute = false }) {
 
       <section className={styles.feed}>
         <header className={styles.feedHeader}>
-          <div><span className="section-label">JhatPatAI Community</span><h1>{currentSpace?.name || 'All'}</h1><p>{currentSpace?.description || 'Ask questions, share wins, and learn with the community.'}</p></div>
+          <div><span className="section-label">JhatPatAI Community</span><h1>{headingTitle}{headingPostCountLabel}</h1><p>{currentSpace?.description || 'Ask questions, share wins, and learn with the community.'}</p></div>
           <div className={styles.sort}><button className={sort === 'latest' ? styles.selected : ''} onClick={() => setSort('latest')}>Latest</button><button className={sort === 'popular' ? styles.selected : ''} onClick={() => setSort('popular')}>Popular</button></div>
         </header>
 
