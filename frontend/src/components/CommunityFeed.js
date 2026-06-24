@@ -117,7 +117,7 @@ export default function CommunityFeed({ spaceRoute = false }) {
 
       <section className={styles.feed}>
         <header className={styles.feedHeader}>
-          <div><span className="section-label">JhatPatAI Community</span><h1>{currentSpace?.name || 'All Feed'}</h1><p>{currentSpace?.description || 'Ask questions, share wins, and learn with the community.'}</p></div>
+          <div><span className="section-label">JhatPatAI Community</span><h1>{currentSpace?.name || 'All'}</h1><p>{currentSpace?.description || 'Ask questions, share wins, and learn with the community.'}</p></div>
           <div className={styles.sort}><button className={sort === 'latest' ? styles.selected : ''} onClick={() => setSort('latest')}>Latest</button><button className={sort === 'popular' ? styles.selected : ''} onClick={() => setSort('popular')}>Popular</button></div>
         </header>
 
