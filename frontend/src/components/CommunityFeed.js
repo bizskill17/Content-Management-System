@@ -103,7 +103,6 @@ export default function CommunityFeed({ spaceRoute = false }) {
     })
     .slice(0, 5);
   const sidebarPostLink = (post) => `/community/post?id=${post.id}`;
-  const railTextStyle = { color: 'var(--primary)' };
   return <>
     <Navbar />
     <main className={styles.shell}>
@@ -153,23 +152,23 @@ export default function CommunityFeed({ spaceRoute = false }) {
 
       <aside className={styles.rightRail}>
         <section className={styles.railPanel}>
-          <h2 style={railTextStyle}>Trending posts</h2>
+          <h2>Trending posts</h2>
           {trendingPosts.length ? trendingPosts.map((post) => (
             <Link className={styles.railPost} href={sidebarPostLink(post)} key={`trending-${post.id}`}>
-              <strong style={railTextStyle}>{post.excerpt || 'Open post'}</strong>
-              <span style={railTextStyle}>{post.space_name} | {post.reaction_count} likes | {post.comment_count} comments</span>
+              <strong>{post.excerpt || 'Open post'}</strong>
+              <span>{post.space_name} | {post.reaction_count} likes | {post.comment_count} comments</span>
             </Link>
-          )) : <p style={railTextStyle}>No trending posts yet.</p>}
+          )) : <p>No trending posts yet.</p>}
         </section>
 
         <section className={styles.railPanel}>
-          <h2 style={railTextStyle}>Recent posts</h2>
+          <h2>Recent posts</h2>
           {recentPosts.length ? recentPosts.map((post) => (
             <Link className={styles.railPost} href={sidebarPostLink(post)} key={`recent-${post.id}`}>
-              <strong style={railTextStyle}>{post.excerpt || 'Open post'}</strong>
-              <span style={railTextStyle}>{post.author_name} | {new Date(post.created_at).toLocaleDateString()}</span>
+              <strong>{post.excerpt || 'Open post'}</strong>
+              <span>{post.author_name} | {new Date(post.created_at).toLocaleDateString()}</span>
             </Link>
-          )) : <p style={railTextStyle}>No recent posts yet.</p>}
+          )) : <p>No recent posts yet.</p>}
         </section>
       </aside>
     </main>
