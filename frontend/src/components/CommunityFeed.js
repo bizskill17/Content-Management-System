@@ -132,7 +132,7 @@ export default function CommunityFeed({ spaceRoute = false }) {
           <div className={styles.avatar}>{user?.name?.[0]?.toUpperCase() || '?'}</div>
           <div className={styles.composeBody}>
             <div className={styles.formatBar}><button type="button" onClick={() => wrapSelection('**')}>B</button><button type="button" onClick={() => wrapSelection('_')}>I</button><button type="button" onClick={() => wrapSelection('`')}>{'</>'}</button></div>
-            <textarea ref={bodyInput} value={body} onChange={(e) => setBody(e.target.value)} placeholder={user ? 'Share something with the community…' : 'Log in to join the conversation…'} onFocus={() => !user && (window.location.href = '/login?redirect=/community')} maxLength={10000} />
+            <textarea ref={bodyInput} value={body} onChange={(e) => setBody(e.target.value)} placeholder={user ? 'Share something…' : 'Log in to join the conversation…'} onFocus={() => !user && (window.location.href = '/login?redirect=/community')} maxLength={10000} />
             <div className={styles.composeExtras}>
               {!spaceSlug && <select value={selectedSpace} onChange={(e) => setSelectedSpace(e.target.value)} aria-label="Choose a space"><option value="">Choose space</option>{spaces.map((space) => <option key={space.id} value={space.id}>{space.name}</option>)}</select>}
               <input value={embed} onChange={(e) => setEmbed(e.target.value)} placeholder="YouTube or Vimeo URL (optional)" />
